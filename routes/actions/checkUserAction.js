@@ -15,11 +15,6 @@ router.get('/', function (req, res, next) {
 	res.send(JSON.stringify({ code: 200, msg: 'ok', data: 0, }));
 });
 
-/* GET checkUser. */
-router.get('/checkUser', function (req, res, next) {
-	res.send('checkUser run');
-});
-
 router.get('/checkUserInfo', function (req, res, next) {
 	res.setHeader('Content-Type', 'application/json');
 	var params = req.query;
