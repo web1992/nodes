@@ -20,10 +20,14 @@
 
 - http://127.0.0.1:3000/payCallBackAction/payCallBack
 
+## mongodb
+
+![paymentTxn](paymentTxn.png)
+
 ```sql
 db.createUser(
    {
-     user:"shj",
+     user:"abc",
      pwd:"xxxxx",
      roles:[ "readWrite"]
    }
