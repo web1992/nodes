@@ -2,9 +2,12 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 var xml = require('xml');
-const checkUserUrl = 'http://checkuser.sdk.quicksdk.net/v2/checkUserInfo';
-const productCode = '52877988295221592932512720453078';
+var config = require('../../conf/quicksdkConfig.json');
+const checkUserUrl = config.checkUserUrl;
+const productCode = config.productCode;
 const SUC = '1';
+
+
 
 /* GET checkUser. */
 router.get('/', function (req, res, next) {
@@ -24,9 +27,11 @@ router.get('/checkUserInfo', function (req, res, next) {
 	var uid = params.uid;
 	if (!token) {
 		res.send(JSON.stringify({ code: 200, msg: 'token不能为空', data: false, }));
+		return;
 	}
 	if (!uid) {
 		res.send(JSON.stringify({ code: 200, msg: 'uid不能为空', data: false, }));
+		return;
 	}
 	var product_code = '';
 	var channel_code = '';
