@@ -2,8 +2,11 @@
 var express = require('express');
 var md5 = require('md5');
 var router = express.Router();
+var convert = require('xml-js');
 var config = require('../../conf/quicksdkConfig.json');
+var paymentTxnDao = require("./../../lib/dao/paymentTxnDao");
 const key = config.md5Key;
+// const key = config.testKey;
 const suc = "SUCCESS";
 const fail = "fail";
 
@@ -39,14 +42,47 @@ router.get('/payCallBack', function (req, res, next) {
 			_xml = decode(nt_data, key);
 			console.log('payCallBackAction _xml= ' + _xml);
 		} else {
+			console.log('payCallBackAction 签名错误');
 			res.send(fail + '签名错误');
 			return;
 		}
 		if (_xml) {
 			// save to db
 			// 处理成功时，返回suc
+			var result = convert.xml2js(_xml, { compact: true, spaces: 4 });
+			console.log('payCallBackAction result= ' + JSON.stringify(result));
+			var payTxn = result['skymoons_message']['message'];
+			console.log('payCallBackAction payTxn= ' + JSON.stringify(payTxn));
+			var dao = new paymentTxnDao();
+			//payTxn.amount._text
+			var payTxnDomain={};
+			for(var p in payTxn){
+				//console.log(payTxn[p]._text);
+				payTxnDomain[p]=payTxn[p]._text;
+			 }
+
+			// 查询订单是否存在
+			var queryParam = {};
+			queryParam.game_order = payTxnDomain.game_order;
+			queryParam.channel = payTxnDomain.channel;
+			dao.findPaymentTxn(queryParam, function (item) {
+				console.log('payCallBackAction findPaymentTxn item  queryParam = ' + JSON.stringify(queryParam) + " length=" + item.items.length);
+				if (item.status == 200 && item.items.length == 0) {
+					//  插入数据
+					dao.addPaymentTxn(payTxnDomain, function (addResult) {
+						if (addResult.status == 200) {
+							console.log('payCallBackAction#addPaymentTxn 添加订单成功= ', addResult.status);
+						}
+					});
+
+				} else {
+					// 已经存在直接返回成功
+					console.log('payCallBackAction findPaymentTxn 订单已经存在= ' + JSON.stringify(payTxnDomain.game_order));
+				}
+			});
+			// 返回成功
 			res.send(suc);
-			return;
+
 		} else {
 			// 处理失败
 			res.send(fail);

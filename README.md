@@ -20,10 +20,20 @@
 
 - http://127.0.0.1:3000/payCallBackAction/payCallBack
 
+```sql
+db.createUser(
+   {
+     user:"shj",
+     pwd:"xxxxx",
+     roles:[ "readWrite"]
+   }
+)
+```
+
 ## debug
 
 @see  `launch.json`
 
 ## api docs
 
-https://www.quicksdk.com/doc-15.html
+- https://www.quicksdk.com/doc-15.html
