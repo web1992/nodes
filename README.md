@@ -1,11 +1,13 @@
 # nodes
 
-
 ## run
+
 `npm install`
 `npm start`
 
 http://127.0.0.1:3000/checkUserAction/checkUserInfo
+
+http://127.0.0.1:3000/checkUserAction/checkUserInfo?token=1&uid=1
 
 http://127.0.0.1:3000/payCallBackAction/payCallBack
 
