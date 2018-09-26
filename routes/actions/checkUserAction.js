@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
-var xml = require('xml');
 var config = require('../../conf/quicksdkConfig.json');
 const checkUserUrl = config.checkUserUrl;
 const productCode = config.productCode;
