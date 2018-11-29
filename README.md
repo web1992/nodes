@@ -45,3 +45,11 @@ db.createUser(
 ## git diff
 
 ![diff2html](https://diff2html.xyz/index.html)
+
+```node
+## 分支修改 diff
+diff2html master dev -f json -o stdout
+
+## 本地修改 diff
+diff2html  -f json -o stdout
+```
