@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="dist/diff2html.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+  <!-- Javascripts -->
+  <script type="text/javascript" src="dist/diff2html.js"></script>
+  <script type="text/javascript" src="dist/diff2html-ui.js"></script>
+
+  <script type="text/javascript">
+    // or
+
+    var diffJson = [
+      {
+        blocks: [
+          {
+            lines: [
+              { content: "-", type: "d2h-del", oldNumber: 1, newNumber: null },
+              { content: "+1", type: "d2h-ins", oldNumber: null, newNumber: 1 },
+              { content: "+2", type: "d2h-ins", oldNumber: null, newNumber: 2 },
+              { content: " 3", type: "d2h-cntx", oldNumber: 2, newNumber: 3 },
+              { content: " 4", type: "d2h-cntx", oldNumber: 3, newNumber: 4 }
+            ],
+            oldStartLine: "1",
+            oldStartLine2: null,
+            newStartLine: "1",
+            header: "@@ -1,3 +1,4 @@"
+          }
+        ],
+        deletedLines: 1,
+        addedLines: 2,
+        isGitDiff: true,
+        checksumBefore: "7f37832",
+        checksumAfter: "94ebaf9",
+        mode: "100644",
+        oldName: "readme.md",
+        language: "md",
+        newName: "readme.md",
+        isCombined: false
+      }
+    ];
+
+    $(document).ready(function() {
+      var diff2htmlUi = new Diff2HtmlUI({ json: diffJson });
+
+      diff2htmlUi.draw("#diff", {
+        inputFormat: "json",
+        showFiles: true,
+        matching: "lines",
+        outputFormat: "side-by-side"
+        //outputFormat: "line-by-line"
+      });
+      //diff2htmlUi.highlightCode("#diff");
+    });
+  </script>
+
+  <head>
+    <body>
+      <div id="diff"></div>
+    </body>
+  </head>
+</html>

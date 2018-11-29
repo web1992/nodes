@@ -36,8 +36,12 @@ db.createUser(
 
 ## debug
 
-@see  `launch.json`
+@see `launch.json`
 
 ## api docs
 
 - https://www.quicksdk.com/doc-15.html
+
+## git diff
+
+![diff2html](https://diff2html.xyz/index.html)
