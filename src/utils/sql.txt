@@ -1,0 +1,2 @@
+status 交易状态
+modify_time 交易状态对应的时间
